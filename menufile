@@ -1,0 +1,6 @@
+Menu Heading
+Menu Description
+List
+clear;ls -l;sleep 10;clear
+Disk Usage
+clear;df -h;sleep 10;clear
