@@ -18,3 +18,15 @@ NOTE:
 
 Disclaimer: I wasn't a developer when I wrote this - there will be some warnings during compilation and the error handling isn't
 brilliant - trying leaving the TTY unset, sit back and watch the segmentation violation.
+
+Planned Updates
+===============
+As time permits - here's the plan:
+ - Clear up the compilation warnings
+ - Add some error checking to deal with the TTY segmentation vioation errors
+ - Enhancements
+   - Add up/down arrow support to highlight menu option
+   - Remove the old 'OFF' ways of exiting the screen and just use Q/q
+   - Maybe move to windows for the various areas of the screen
+   - General code improvements
+   - toying with the idea of having submenus loaded via windows but it's so easy to embed the menu within a menu at the moment
