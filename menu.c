@@ -4,8 +4,6 @@
 /* It uses curses so it should be portable across Unix's and terminals.    */
 /*-------------------------------------------------------------------------*/
 /* Author  : Steve Harris (steve.harris@shaw.ca)                           */
-/* Version : 1.7                                                           */
-/* Date    : 20th July 1996                                                */
 /***************************************************************************/
 /* Version 1.1 - Steve Harris (13/11/96)                                   */
 /* 1. Changed getch to scanw and added atoi to cope with string and number */
@@ -48,6 +46,12 @@
 /* Version 1.9 - Steve Harris (02/6/2020)                                  */
 /* 1. Added a few includes to get this up and running on Ubuntu 16.4       */
 /***************************************************************************/
+/* Version 1.10 - Steve Harris (06/6/2020)                                 */
+/* 1. Move the check to see if the filename is valiad to start of program  */
+/* to deal with the missing argument before initiatrionsin curses which    */
+/* messes the screen layout up.                                            */
+/* 2. Error hanlding in to capture empty TTY                               */
+/***************************************************************************/
 
 #include <curses.h>
 #include <signal.h>
@@ -84,6 +88,7 @@ char line[81] = "                                                               
 char prompt_line[] = "Enter Option : ";
 char exit_line[]="(OFF to quit)";
 char password_prompt[]="CP to change password";
+char NOTTY[]="NOTTY";
 
 /*Menu file related settings*/
 FILE *menu_file; 
@@ -103,6 +108,17 @@ main(int argc, char *argv[])
 	/*Record menu file name*/
 	file_name=argv[1];
 
+	/* Open file and read in data - send error if not there.*/	
+	menu_file = fopen(file_name,"r");
+
+	if (menu_file == NULL)
+	{
+		printf("Cannot open your menu file.\n");
+		printf("Usage : menu 'menu text_file'\n\n");
+		endwin();
+		exit(8);
+	};
+
 	/*Setup curses and interrupts*/
 	initscr();
 	signal(SIGINT, die);
@@ -110,7 +126,9 @@ main(int argc, char *argv[])
 	/*Setup the variables depending on the  */
 	/*environment settings.                 */
 	login_name=getenv("LOGNAME");
-	login_term=getenv("TTY"); 
+	login_term=getenv("TTY");
+	if (login_term == NULL){
+		login_term=NOTTY;}
 	
 	/*Read in the menu file*/
 	read_menu_file();
@@ -151,17 +169,6 @@ main(int argc, char *argv[])
 /********************/
 read_menu_file()
 {
-	/* Open file and read in data - send error if not there.*/	
-	menu_file = fopen(file_name,"r");
-
-	if (menu_file == NULL)
-	{
-		printf("Cannot open your menu file.\n");
-		printf("Usage : menu 'menu text_file'\n\n");
-		endwin();
-		exit(8);
-	};
-
 	/*Read in first two heading lines from file and then read*/
 	/*the rest into our array of structures*/
 	fgets(menu_heading, sizeof(menu_heading), menu_file);
