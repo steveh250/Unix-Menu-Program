@@ -6,10 +6,8 @@ Build on Ubuntu 16.04
 =====================
 1. Install curses libraries: 'sudo apt-get install libncurses5-dev libncursesw5-dev'
 2. Compile the menu.c: 'gcc -v -o menu menu.c -lncurses'
-3. This was written in the days of tty's so before running set the TTY env variable to something: 'export TTY="tty1"'
-  - Either that or comment out the respective lines in the code.
-4. Create a menu file - sample is attached.
-5. Start it up: './menu menufile'
+3. Create a menu file - sample is attached.
+4. Start it up: './menu menufile'
 
 NOTE:
  - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
