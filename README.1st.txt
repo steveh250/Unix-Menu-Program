@@ -11,7 +11,6 @@ Build on Ubuntu 16.04
 
 NOTE:
  - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
- - It was written for a system that used kerberos (hence the built in kbpasswd option) and PICK (hence the OFF/off exit commands).
  - If you use it or modify it, I'd appreciate a mention in the source code.
 
 Disclaimer: I wasn't a developer when I wrote this - there will be some warnings during compilation and the error handling isn't
