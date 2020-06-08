@@ -24,6 +24,7 @@ As time permits - here's the plan:
  - (DONE) Add some error checking to deal with the TTY segmentation violation errors
  - Enhancements
    - Add up/down arrow support to highlight menu option
-   - Remove the old 'OFF' ways of exiting the screen and just use Q/q
+   - (DONE) Remove the old 'OFF' ways of exiting the screen and just use Q/q
    - Maybe move to windows for the various areas of the screen or submenus (although it's so easy to call menu from within menu).
    - General code improvements
+     - (DONE) Changed kerbpass to passwd
