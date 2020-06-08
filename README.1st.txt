@@ -24,4 +24,4 @@ As time permits - here's the plan:
    - Maybe move to windows for the various areas of the screen or submenus (although it's so easy to call menu from within menu).
    - General code improvements
      - (DONE) Changed kerbpass to passwd
-     - (DONE) Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displated at the bottom of the screen - there was an redundant printw() - echo() had already been set.
+     - (DONE) Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set.
