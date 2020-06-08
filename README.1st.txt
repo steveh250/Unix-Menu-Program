@@ -22,11 +22,10 @@ brilliant - trying leaving the TTY unset, sit back and watch the segmentation vi
 Planned Updates
 ===============
 As time permits - here's the plan:
- - Clear up the compilation warnings
+ - (DONE) Clear up the compilation warnings
  - (DONE) Add some error checking to deal with the TTY segmentation violation errors
  - Enhancements
    - Add up/down arrow support to highlight menu option
    - Remove the old 'OFF' ways of exiting the screen and just use Q/q
-   - Maybe move to windows for the various areas of the screen
+   - Maybe move to windows for the various areas of the screen or submenus (although it's so easy to call menu from within menu).
    - General code improvements
-   - toying with the idea of having submenus loaded via windows but it's so easy to embed the menu within a menu at the moment
