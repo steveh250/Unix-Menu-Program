@@ -57,6 +57,9 @@
 /* function declaration. nd incorrect types                                */
 /* 2. Remove the old 'OFF' exit commands - just Q/q now.                   */
 /* 3. Replace the kerbpass with passwd.                                    */
+/* 4. Fix a bug where redrawing the menu after execution of command left   */
+/* the last menu option selected displayed on the screen - there was a     */
+/* printw after the scanw that was not needed as echo() had been set.      */
 /***************************************************************************/
 
 #include <curses.h>
@@ -343,7 +346,6 @@ int get_option()
 	echo();
 	nl();
 	scanw("%3s",from_term);
-	printw("%3s",from_term);
 	choice=atoi(from_term);
 	
 	/*Process menu choice*/
