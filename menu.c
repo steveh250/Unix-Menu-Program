@@ -52,6 +52,10 @@
 /* messes the screen layout up.                                            */
 /* 2. Error hanlding in to capture empty TTY                               */
 /***************************************************************************/
+/* Version 1.11 - Steve Harris (07/6/2020)                                 */
+/* 1. Tidy up compiler warnings - seem to be C90 formatting - int's,       */
+/* function declaration. nd incorrect types                                */
+/***************************************************************************/
 
 #include <curses.h>
 #include <signal.h>
@@ -74,10 +78,20 @@ struct menu_item
 
 struct menu_item menu[MAX_NO_ITEMS];
 
+/* Declare functions */
+int read_menu_file();
+int construct_menu();
+int draw_menu_body();
+int draw_dual_body();
+int get_option();
+int find_center();
+int draw_bottom_line();
+void die();
+
 /*Setup variable to use in code*/
 int center_x;
-int die(), count, total_no_of_items; 
-int *ch;		/*Used for EOF*/
+int count, total_no_of_items; 
+char *ch;		/*Used for EOF*/
 WINDOW *subone;		/*Window pointer for menu*/
 char from_term[3]; 	/*Characters read in from terminal*/
 int choice;		/*Used to hold number of menu choice*/
@@ -103,7 +117,7 @@ char *login_name, *login_term;
 /*This is main() - where the real work is */
 /*done.                                   */
 /******************************************/
-main(int argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	/*Record menu file name*/
 	file_name=argv[1];
@@ -167,7 +181,7 @@ main(int argc, char *argv[])
 /********************/
 /*Read the menu file*/
 /********************/
-read_menu_file()
+int read_menu_file()
 {
 	/*Read in first two heading lines from file and then read*/
 	/*the rest into our array of structures*/
@@ -199,7 +213,7 @@ read_menu_file()
 /****************************************/
 /*Following function contructs the menu.*/
 /****************************************/
-construct_menu(char menu_file_name[])
+int construct_menu(char menu_file_name[])
 {
 	/*Creates the main menu window*/
 
@@ -238,7 +252,7 @@ construct_menu(char menu_file_name[])
 /***********************************/
 /*Function to draw a dual menu body*/
 /***********************************/
-draw_dual_body(int start_y_dual,int start_x_dual)
+int draw_dual_body(int start_y_dual,int start_x_dual)
 {
 	int right_hand, left_hand, temp_count, right_y;
 
@@ -284,7 +298,7 @@ draw_dual_body(int start_y_dual,int start_x_dual)
 /***************************************************/
 /*Function to draw the menu body in a single colmun*/
 /***************************************************/
-draw_menu_body(int start_y, int start_x, int item_gap, int start_option, int end_option)
+int draw_menu_body(int start_y, int start_x, int item_gap, int start_option, int end_option)
 {
 	/*Draw rest of menu*/
 	/*Put in menu options*/
@@ -307,7 +321,7 @@ draw_menu_body(int start_y, int start_x, int item_gap, int start_option, int end
 /*Draw the bottom line - in a function because its used in more than one*/
 /*place. It dosen't do a refresh the calling function should do it.     */
 /************************************************************************/
-draw_bottom_line()
+int draw_bottom_line()
 {
 	move(23,0);
 	clrtoeol();
@@ -320,7 +334,7 @@ draw_bottom_line()
 /************************************************************************/
 /*function to get response from the user and load the appropriate option*/
 /************************************************************************/
-get_option()
+int get_option()
 {
 	/*Setup and get response from user*/
 	raw();
@@ -365,7 +379,7 @@ get_option()
 /*Function to service interrupt  */
 /*or to simply terminate.        */
 /*********************************/
-die()
+void die()
 {
 	endwin();
 	exit(0);
@@ -374,7 +388,7 @@ die()
 /***************************************/
 /*Find the center of whats passed to it*/
 /***************************************/
-find_center(char center_of_what[])
+int find_center(char center_of_what[])
 {
 	center_x = (80-(strlen(center_of_what)-1))/2;
 }
