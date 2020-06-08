@@ -13,9 +13,6 @@ NOTE:
  - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
  - If you use it or modify it, I'd appreciate a mention in the source code.
 
-Disclaimer: I wasn't a developer when I wrote this - there will be some warnings during compilation and the error handling isn't
-brilliant - trying leaving the TTY unset, sit back and watch the segmentation violation.
-
 Planned Updates
 ===============
 As time permits - here's the plan:
