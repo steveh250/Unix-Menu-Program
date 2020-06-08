@@ -55,6 +55,8 @@
 /* Version 1.11 - Steve Harris (07/6/2020)                                 */
 /* 1. Tidy up compiler warnings - seem to be C90 formatting - int's,       */
 /* function declaration. nd incorrect types                                */
+/* 2. Remove the old 'OFF' exit commands - just Q/q now.                   */
+/* 3. Replace the kerbpass with passwd.                                    */
 /***************************************************************************/
 
 #include <curses.h>
@@ -100,7 +102,7 @@ int item_step;		/*Gap plus one between menu options*/
 /*Used in constructing menu - messy isn't it*/
 char line[81] = "                                                                                ";
 char prompt_line[] = "Enter Option : ";
-char exit_line[]="(OFF to quit)";
+char exit_line[]="(Q/q to quit)";
 char password_prompt[]="CP to change password";
 char NOTTY[]="NOTTY";
 
@@ -347,9 +349,7 @@ int get_option()
 	/*Process menu choice*/
 
 	if ((strcmp(from_term,"q") == 0) ||
-	    (strcmp(from_term,"Q") == 0) ||
-	    (strcmp(from_term,"off") == 0) ||
-	    (strcmp(from_term, "OFF") == 0))
+	    (strcmp(from_term, "Q") == 0))
 	{
 		die();
 	}
@@ -359,7 +359,7 @@ int get_option()
 	    	   (strcmp(from_term,"CP") ==0))
 		{
 			endwin();
-			system("clear;kerbpass $LOGNAME");
+			system("clear;passwd $LOGNAME;clear");
 			doupdate();
 		}
 		else
