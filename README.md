@@ -1,6 +1,7 @@
+Background
+==========
 This menu.c was written back in the 90's for an IBM AIX system running some PICK applications.
-
-I got it up an running on a Ubuntu 16.04 VM - use the following to get a compiled and running version.
+Modified to run on Ubuntu (should compile fine on other platforms - it's pretty basic).:wq!
 
 Build on Ubuntu 16.04
 =====================
