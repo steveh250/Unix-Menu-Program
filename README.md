@@ -16,6 +16,9 @@ Build on Ubuntu 16.04
 
 menufile - format
 =================
+ - Max length of each line - 80 chars.
+ - Max number of options - 30.
+
 ```
 Line 1 - Main menu heading at top of screen
 Line 2 - Menu heading
