@@ -19,6 +19,7 @@ Build on Ubuntu 16.04
 menufile - format
 =================
  - Max length of each line - 80 chars.
+   - NOTE: If you're in any doubt about the length of the command, wrap it up in a script (you wouldn't want your 'rm' command to land on the 80 char boundary :).
  - Max number of options - 30.
 
 ```
