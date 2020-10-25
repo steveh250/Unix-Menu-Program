@@ -47,8 +47,8 @@
 /* 1. Added a few includes to get this up and running on Ubuntu 16.4       */
 /***************************************************************************/
 /* Version 1.10 - Steve Harris (06/6/2020)                                 */
-/* 1. Move the check to see if the filename is valid to start of program  */
-/* to deal with the missing argument before initiating curses which       */
+/* 1. Move the check to see if the filename is valid to start of program   */
+/* to deal with the missing argument before initiating curses which        */
 /* messes the screen layout up.                                            */
 /* 2. Error handling in to capture empty TTY                               */
 /***************************************************************************/
