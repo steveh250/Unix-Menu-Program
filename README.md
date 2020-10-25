@@ -11,6 +11,7 @@ Build on Ubuntu 16.04
 
 menufile - format
 =================
+'''
 Line 1 - Main menu heading at top of screen
 Line 2 - Menu heading
 Option 1 - heading
@@ -18,6 +19,7 @@ Option 1 - command to run: either commands to run or call a shell script if long
 Option 2 - Menu option description that will appear on the menu
 Option 2 - command to run
 Option.....
+'''
 
 NOTE:
  - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
