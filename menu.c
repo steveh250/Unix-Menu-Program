@@ -47,14 +47,14 @@
 /* 1. Added a few includes to get this up and running on Ubuntu 16.4       */
 /***************************************************************************/
 /* Version 1.10 - Steve Harris (06/6/2020)                                 */
-/* 1. Move the check to see if the filename is valiad to start of program  */
-/* to deal with the missing argument before initiatrionsin curses which    */
+/* 1. Move the check to see if the filename is valid to start of program  */
+/* to deal with the missing argument before initiating curses which       */
 /* messes the screen layout up.                                            */
-/* 2. Error hanlding in to capture empty TTY                               */
+/* 2. Error handling in to capture empty TTY                               */
 /***************************************************************************/
 /* Version 1.11 - Steve Harris (07/6/2020)                                 */
 /* 1. Tidy up compiler warnings - seem to be C90 formatting - int's,       */
-/* function declaration. nd incorrect types                                */
+/* function declaration and incorrect types                                */
 /* 2. Remove the old 'OFF' exit commands - just Q/q now.                   */
 /* 3. Replace the kerbpass with passwd.                                    */
 /* 4. Fix a bug where redrawing the menu after execution of command left   */
@@ -215,9 +215,9 @@ int read_menu_file()
 	total_no_of_items=count;
 }
 
-/****************************************/
-/*Following function contructs the menu.*/
-/****************************************/
+/*****************************************/
+/*Following function constructs the menu.*/
+/*****************************************/
 int construct_menu(char menu_file_name[])
 {
 	/*Creates the main menu window*/
@@ -301,7 +301,7 @@ int draw_dual_body(int start_y_dual,int start_x_dual)
 
 
 /***************************************************/
-/*Function to draw the menu body in a single colmun*/
+/*Function to draw the menu body in a single column*/
 /***************************************************/
 int draw_menu_body(int start_y, int start_x, int item_gap, int start_option, int end_option)
 {
@@ -324,7 +324,7 @@ int draw_menu_body(int start_y, int start_x, int item_gap, int start_option, int
 
 /************************************************************************/
 /*Draw the bottom line - in a function because its used in more than one*/
-/*place. It dosen't do a refresh the calling function should do it.     */
+/*place. It doesn't do a refresh the calling function should do it.     */
 /************************************************************************/
 int draw_bottom_line()
 {
