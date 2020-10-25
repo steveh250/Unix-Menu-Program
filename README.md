@@ -29,12 +29,12 @@ NOTE:
 Planned Updates
 ===============
 As time permits - here's the plan:
- - (DONE) Clear up the compilation warnings
- - (DONE) Add some error checking to deal with the TTY segmentation violation errors
+ - [x] Clear up the compilation warnings
+ - [x] Add some error checking to deal with the TTY segmentation violation errors
  - Enhancements
-   - Add up/down arrow support to highlight menu option
-   - (DONE) Remove the old 'OFF' ways of exiting the screen and just use Q/q
-   - Maybe move to windows for the various areas of the screen or submenus (although it's so easy to call menu from within menu).
+   - [ ] Add up/down arrow support to highlight menu option
+   - [x] Remove the old 'OFF' ways of exiting the screen and just use Q/q
+   - [ ] Maybe move to windows for the various areas of the screen or submenus (although it's so easy to call menu from within menu).
    - General code improvements
-     - (DONE) Changed kerbpass to passwd
-     - (DONE) Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set.
+     - [x] Changed kerbpass to passwd
+     - [x] Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set.
