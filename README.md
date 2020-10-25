@@ -46,5 +46,7 @@ As time permits - here's the plan:
    - [x] Changed kerbpass to passwd
    - [x] Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set.
 
+Licensing
+=========
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
