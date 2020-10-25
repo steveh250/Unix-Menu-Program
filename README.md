@@ -5,7 +5,7 @@ Modified to run on Ubuntu (should compile fine on other platforms - it's pretty 
 
 NOTE:
  - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
- - If you use it or modify it, I'd appreciate a mention in the source code.
+ - If you use it or modify it, I'd appreciate a mention in the source code - drop me an email to let me know what you're using it for, I'd be really interested.
 
 ![](menu-gif.gif)
 
