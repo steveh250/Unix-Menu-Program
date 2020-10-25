@@ -22,8 +22,8 @@ menufile - format
  - Max number of options - 30.
 
 ```
-Line 1 - Main menu heading at top of screen
-Line 2 - Menu heading
+Line 1 - Menu Heading - heading at top of screen
+Line 2 - Menu Description - heading at top of menu
 Option 1 - Menu option description that will appear on the menu
 Option 1 - command to run: either commands, call a shell script (if longer than 80 chars). Note: could also call another menu
 Option 2 - Menu option description that will appear on the menu
