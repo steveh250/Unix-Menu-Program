@@ -29,8 +29,9 @@ NOTE:
 Planned Updates
 ===============
 As time permits - here's the plan:
- - [x] Clear up the compilation warnings
- - [x] Add some error checking to deal with the TTY segmentation violation errors
+ - General Cleanup
+   - [x] Clear up the compilation warnings
+   - [x] Add some error checking to deal with the TTY segmentation violation errors
  - Enhancements
    - [ ] Add up/down arrow support to highlight menu option
    - [x] Remove the old 'OFF' ways of exiting the screen and just use Q/q
