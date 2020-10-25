@@ -1,6 +1,8 @@
-Menu Heading
-Menu Description
+Menu Heading - Menu 1
+Menu Description - Menu 1
 List
 clear;ls -l;sleep 10;clear
 Disk Usage
 ./df.sh
+Menu 2
+clear;./menu menufile2

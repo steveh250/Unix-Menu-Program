@@ -16,7 +16,7 @@ menufile - format
 Line 1 - Main menu heading at top of screen
 Line 2 - Menu heading
 Option 1 - heading
-Option 1 - command to run: either commands to run or call a shell script if longer than 80 chars (note: could also call another menu).
+Option 1 - command to run: either commands to run or call a shell script if longer than 80 chars (note: could also call another menu)
 Option 2 - Menu option description that will appear on the menu
 Option 2 - command to run
 Option.....

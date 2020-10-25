@@ -1,0 +1,4 @@
+Menu Heading - Menu 2
+Menu Description - Menu 1
+du - all files
+clear;du -all | more;clear
