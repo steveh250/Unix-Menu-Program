@@ -3,6 +3,10 @@ Background
 This menu.c was written back in the 90's for an IBM AIX system running some PICK applications.
 Modified to run on Ubuntu (should compile fine on other platforms - it's pretty basic).
 
+NOTE:
+ - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
+ - If you use it or modify it, I'd appreciate a mention in the source code.
+
 Build on Ubuntu 16.04
 =====================
 1. Install curses libraries: 'sudo apt-get install libncurses5-dev libncursesw5-dev'
@@ -21,10 +25,6 @@ Option 2 - Menu option description that will appear on the menu
 Option 2 - command to run
 Option.....
 ```
-
-NOTE:
- - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
- - If you use it or modify it, I'd appreciate a mention in the source code.
 
 Planned Updates
 ===============
