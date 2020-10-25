@@ -9,6 +9,16 @@ Build on Ubuntu 16.04
 3. Create a menu file - sample is attached.
 4. Start it up: './menu menufile'
 
+menufile - format
+=================
+Line 1 - Main menu heading at top of screen
+Line 2 - Menu heading
+Option 1 - heading
+Option 1 - command to run: either commands to run or call a shell script if longer than 250 chars
+Option 2 - Menu option description that will appear on the menu
+Option 2 - command to run
+Option.....
+
 NOTE:
  - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
  - If you use it or modify it, I'd appreciate a mention in the source code.
