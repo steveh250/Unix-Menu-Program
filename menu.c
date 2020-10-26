@@ -126,6 +126,13 @@ char *login_name, *login_term;
 /******************************************/
 int main(int argc, char *argv[])
 {
+        /* PS CODE FOR START*/
+        /*
+                IF ARG=-c CODE_PATH=CURSES
+                IF ARG=-n CODE_PATH=NEWT
+                ELSE "Error - usage menu <-c> <-d> menufile
+        */
+
 	/*Record menu file name*/
 	file_name=argv[1];
 
