@@ -61,7 +61,9 @@
 /* the last menu option selected displayed on the screen - there was a     */
 /* printw after the scanw that was not needed as echo() had been set.      */
 /***************************************************************************/
-
+/* Newt branch.                                                            */
+/* Start working on the newt code path in menu.c                           */
+/***************************************************************************/
 #include <curses.h>
 #include <signal.h>
 #include <stdio.h>
