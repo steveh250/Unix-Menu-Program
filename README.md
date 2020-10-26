@@ -16,7 +16,7 @@ Build on Ubuntu 16.04
 3. Create a menu file - sample in repo
 4. Start it up: `./menu menufile`
 
-usage
+Usage
 =====
  - `$ menu -c menufile` (display the menufile using simple curses based menu)
  - `$ menu -n menufile` (display the menufile using newt character graphics menu)
