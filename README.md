@@ -7,13 +7,13 @@ NOTE:
  - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
  - If you use it or modify it, I'd appreciate a mention in the source code (taking into account [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ) - drop me an email to let me know what you're using it for, I'd be really interested.
 
-![](menu-gif2.gif)
+![](menu-gif3.gif)
 
 Build on Ubuntu 16.04
 =====================
 1. Install curses libraries: `sudo apt-get install libncurses5-dev libncursesw5-dev`
 2. Install newt libraries: `sudo apt-get install libnewt-dev`
-3. Compile the menu.c: `gcc -v -o menu menu.c -lncurses`
+3. Compile the menu.c: `gcc -o menu menu.c -lncurses`
 4. Create a menu file - sample in repo
 5. Start it up - see usage below
 
@@ -21,6 +21,7 @@ Usage
 =====
  - `$ menu -c menufile` (display the menufile using simple curses based menu)
  - `$ menu -n menufile` (display the menufile using newt character graphics menu)
+ NOTE: In the menufile you can call menus of other types (e.g. a newt menu can call a curses menu) but you have to hard code that into the menufile - example in the repo (menufile calls menufile2 as a curses menu).
 
 menufile - format
 =================
