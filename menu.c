@@ -295,7 +295,7 @@ int main(int argc, char *argv[])
 	 
 	    /* Setup the headings and footer*/
 	    newtDrawRootText(0, 0, menu_heading);
-	    newtPushHelpLine(NULL);
+	    newtPushHelpLine("Scroll up or down and select the menu item to execute.");
 	    newtOpenWindow(10, 5, 65, 16, menu_description);
 
 	    /* Setup the form */
@@ -305,7 +305,7 @@ int main(int argc, char *argv[])
 	    newtFormAddComponents(f, NULL);
 
 	    /* Setup the list box */
-	    lb = newtListbox(45, 1, 6, NEWT_FLAG_RETURNEXIT | NEWT_FLAG_BORDER |
+	    lb = newtListbox(30, 1, 6, NEWT_FLAG_RETURNEXIT | NEWT_FLAG_BORDER |
 	                                NEWT_FLAG_SCROLL | NEWT_FLAG_SHOWCURSOR);
 	    
 	    int i; /* Cpount for the loop */
@@ -313,7 +313,7 @@ int main(int argc, char *argv[])
 	    for (i=0; i < total_no_of_items; i++) {
 	    		    newtListboxAppendEntry(lb, menu[i].description, (void *)(long) i+1);
 	    }
-	    /* Add quit option and record number */
+	    /* Add quit option and record number of the Quit menu item */
 	    newtListboxAppendEntry(lb, "Quit", (void *)(long) i+1);
 	    int quitMenuItem=i+1;
 
@@ -343,8 +343,10 @@ int main(int argc, char *argv[])
 				 exit(0);
 			}
 		    /* We're not quitting so run the command go back to the menu */
+		    /* Had trouble with screen output of shell commands - suspend and resume */
+		    newtSuspend();
 		 	system(menu[numhighlighted-1].command);
-		 	newtRefresh();
+		 	newtResume();
 	 	}
 
 
