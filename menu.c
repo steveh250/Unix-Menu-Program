@@ -305,7 +305,7 @@ int main(int argc, char *argv[])
 	    newtFormAddComponents(f, NULL);
 
 	    /* Setup the list box */
-	    lb = newtListbox(30, 1, 6, NEWT_FLAG_RETURNEXIT | NEWT_FLAG_BORDER |
+	    lb = newtListbox(20, 1, 6, NEWT_FLAG_RETURNEXIT | NEWT_FLAG_BORDER |
 	                                NEWT_FLAG_SCROLL | NEWT_FLAG_SHOWCURSOR);
 	    
 	    int i; /* Cpount for the loop */
