@@ -21,7 +21,7 @@ Usage
 =====
  - `$ menu -c menufile` (display the menufile using simple curses based menu)
  - `$ menu -n menufile` (display the menufile using newt character graphics menu)
- NOTE: In the menufile you can call menus of other types (e.g. a newt menu can call a curses menu) but you have to hard code that into the menufile - example in the repo (menufile calls menufile2 as a curses menu).
+ - NOTE: In the menufile you can call menus of other types (e.g. a newt menu can call a curses menu) but you have to hard code that into the menufile - example in the repo (menufile calls menufile2 as a curses menu).
 
 menufile - format
 =================
