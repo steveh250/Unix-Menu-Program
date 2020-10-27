@@ -40,7 +40,7 @@ As time permits - here's the plan:
    - [x] Add some error checking to deal with the TTY segmentation violation errors
  - Enhancements
    - [x] Remove the old 'OFF' ways of exiting the screen and just use Q/q
-   - [ ] Modify program to accept arguments to create a dialog script which will to create and run a dialog shell script menu based on the menufile.
+   - [ ] Modify program to create a more TUI style menu - underway, if you're brave take a look at the Newt branch.
  - General code improvements
    - [x] Changed kerbpass to passwd
    - [x] Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set.
