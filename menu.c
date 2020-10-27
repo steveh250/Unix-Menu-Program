@@ -61,8 +61,8 @@
 /* the last menu option selected displayed on the screen - there was a     */
 /* printw after the scanw that was not needed as echo() had been set.      */
 /***************************************************************************/
-/* Newt branch.                                                            */
-/* Start working on the newt code path in menu.c                           */
+/* Version 1.12 - Steve Harris (10/26/2020): newt branch                   */
+/* Added in usage, option processing and CODE_PATH with newt code.         */
 /***************************************************************************/
 #include <curses.h>
 #include <signal.h>
@@ -70,6 +70,7 @@
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
+#include "newt.h"
 
 /************************************/
 /*Setup structures for the menu file*/
@@ -85,7 +86,7 @@ struct menu_item
 
 struct menu_item menu[MAX_NO_ITEMS];
 
-/* Declare functions */
+/* CURSES - Declare functions */
 int read_menu_file();
 int construct_menu();
 int draw_menu_body();
@@ -95,7 +96,7 @@ int find_center();
 int draw_bottom_line();
 void die();
 
-/*Setup variable to use in code*/
+/* CURSES - Setup variables to use in code*/
 int center_x;
 int count, total_no_of_items; 
 char *ch;		/*Used for EOF*/
@@ -104,51 +105,97 @@ char from_term[3]; 	/*Characters read in from terminal*/
 int choice;		/*Used to hold number of menu choice*/
 int item_step;		/*Gap plus one between menu options*/
 
-/*Used in constructing menu - messy isn't it*/
+/*CURSES - Used in constructing menu - messy isn't it*/
 char line[81] = "                                                                                ";
 char prompt_line[] = "Enter Option : ";
 char exit_line[]="(Q/q to quit)";
 char password_prompt[]="CP to change password";
 char NOTTY[]="NOTTY";
 
-/*Menu file related settings*/
+/* NEWT - Setup */
+struct callbackInfo {
+    newtComponent en;
+    char * state;
+};
+
+ 
+void disableCallback(newtComponent co, void * data) {
+    struct callbackInfo * cbi = data;
+ 
+    if (*cbi->state == ' ') {
+        newtEntrySetFlags(cbi->en, NEWT_FLAG_DISABLED, NEWT_FLAGS_RESET);
+    } else {
+        newtEntrySetFlags(cbi->en, NEWT_FLAG_DISABLED, NEWT_FLAGS_SET);
+    }
+ 
+    newtRefresh();
+}
+ 
+void suspend(void * d) {
+    newtSuspend();
+    raise(SIGTSTP);
+    newtResume();
+}
+ 
+void helpCallback(newtComponent co, void * tag) {
+    newtWinMessage("Help", "Ok", tag);
+}
+
+
+/*BOTH - Menu file related settings*/
 FILE *menu_file; 
 char menu_heading[80];
 char menu_description[80];
 char *file_name;
 
-/*Variables to hold environment variables*/
-char *login_name, *login_term;
+/* BOTH - Variables */
+char *login_name, *login_term; /* Store settings for menu heading */
+char CODE_PATH[7]; /*CURSES or NEWT */
 
-/******************************************/
-/*This is main() - where the real work is */
-/*done.                                   */
-/******************************************/
+/* Usage */
+void usage(char command[]) {
+    printf ("\nUsage: %s <-c | -n> menufile\n", command);
+    printf (" -c : curses base menu\n");
+    printf (" -n : newt based menu\n");
+    printf (" menufile : Input for menu, options and commands\n");
+    printf ("\n See https://github.com/steveh250/Unix-Menu-Program for formatting.\n\n");
+    exit(-1);
+}
+
+/***********************************************/
+/*This is main() - where the real work is done */
+/***********************************************/
 int main(int argc, char *argv[])
 {
-        /* PS CODE FOR START*/
-        /*
-                IF ARG=-c CODE_PATH=CURSES
-                IF ARG=-n CODE_PATH=NEWT
-                ELSE "Error - usage menu <-c> <-d> menufile
-        */
+     
+	/* Process the arguments and determine the code path */
+     if (argc < 3) {
+        usage(argv[0]);
+    };
 
+    if (strcmp(argv[1],"-c") == 0) {
+        strcpy(CODE_PATH,"CURSES");
+    }
+    else if (strcmp(argv[1],"-n") == 0) {
+        strcpy(CODE_PATH,"NEWT");
+    } else {
+        usage(argv[0]);
+    }
+	
 	/*Record menu file name*/
-	file_name=argv[1];
+	file_name=argv[2];
 
 	/* Open file and read in data - send error if not there.*/	
 	menu_file = fopen(file_name,"r");
-
 	if (menu_file == NULL)
 	{
 		printf("Cannot open your menu file.\n");
-		printf("Usage : menu 'menu text_file'\n\n");
+		usage(argv[0]);
 		endwin();
 		exit(8);
 	};
 
-	/*Setup curses and interrupts*/
-	initscr();
+	/* Setup parts independent of code path */
 	signal(SIGINT, die);
 
 	/*Setup the variables depending on the  */
@@ -158,45 +205,9 @@ int main(int argc, char *argv[])
 	if (login_term == NULL){
 		login_term=NOTTY;}
 	
-	/*Read in the menu file*/
-	read_menu_file();
-
-	/*Draw menu*/
-	while(1)
-	{
-		/*Setup menu outline*/
-		construct_menu(file_name);
-
-		if (total_no_of_items <= 8)
-		{
-			/*Draw single column, double spaced*/
-			draw_menu_body(5,30,2,1,8);
-		}
-		else
-		{
-			/*Draw two column,single spaced*/
-			draw_dual_body(5,7);
-		}
-
-		/*Position cursor in prompt and draw*/
-		move(23,15);
-		refresh();
-
-		/*Get the menu option*/
-		get_option();
-
-		/*Clear the from_term and choice*/
-		choice=0;
-		from_term[0]='\0';
-
-	} 
-}
-
-/********************/
-/*Read the menu file*/
-/********************/
-int read_menu_file()
-{
+	/********************/
+	/*Read the menu file*/
+	/********************/
 	/*Read in first two heading lines from file and then read*/
 	/*the rest into our array of structures*/
 	fgets(menu_heading, sizeof(menu_heading), menu_file);
@@ -222,6 +233,115 @@ int read_menu_file()
 
 	fclose(menu_file);
 	total_no_of_items=count;
+
+	/* ********** CODE PATH Decision *******/
+	/* Follow the CURSES or NEWT code path */
+	/***************************************/
+
+	if (strcmp(CODE_PATH,"CURSES") == 0) {	
+		
+		/* CURSES Code Path */
+
+		/*Setup curses*/
+		initscr();
+
+		/*Draw menu*/
+		while(1)
+		{
+			/*Setup menu outline*/
+			construct_menu(file_name);
+
+			if (total_no_of_items <= 8)
+			{
+				/*Draw single column, double spaced*/
+				draw_menu_body(5,30,2,1,8);
+			}
+			else
+			{
+				/*Draw two column,single spaced*/
+				draw_dual_body(5,7);
+			}
+
+			/*Position cursor in prompt and draw*/
+			move(23,15);
+			refresh();
+
+			/*Get the menu option*/
+			get_option();
+
+			/*Clear the from_term and choice*/
+			choice=0;
+			from_term[0]='\0';
+
+		} 
+
+	} else { 
+		/* We're opn the newt code path */
+
+		/* Acknowledgment: based on source from: https://pagure.io/newt/blob/master/f/test.c */
+
+		/* Setup variables */
+	    newtComponent lb, b1, f, t;
+	    struct callbackInfo cbis[3];
+	    struct newtExitStruct es;
+	 
+	 	/* Initialize the screen */
+	    newtInit();
+	    newtCls();
+	 
+	 	/* Setup call backs */
+	    newtSetSuspendCallback(suspend, NULL);
+	    newtSetHelpCallback(helpCallback);
+	 
+	    /* Setup the headings and footer*/
+	    newtDrawRootText(0, 0, menu_heading);
+	    newtPushHelpLine(NULL);
+	    newtOpenWindow(10, 5, 65, 16, menu_description);
+
+	    /* Setup the form */
+	    f = newtForm(NULL, "Scroll to the menu item and press enter to execute.", 0);
+	 
+	 	/* Setup the exit button */
+	    b1 = newtCompactButton(3, 1, "Exit");
+	 
+	 	/* Add the components to the form */
+	    newtFormAddComponents(f, b1, NULL);
+
+	    /* Setup the list box */
+	    lb = newtListbox(45, 1, 6, NEWT_FLAG_RETURNEXIT | NEWT_FLAG_BORDER |
+	                                NEWT_FLAG_SCROLL | NEWT_FLAG_SHOWCURSOR);
+	    newtListboxAppendEntry(lb, "First", (void *) 1);
+	    newtListboxAppendEntry(lb, "Second", (void *) 2);
+	    newtListboxAppendEntry(lb, "Third", (void *) 3);
+	    newtListboxAppendEntry(lb, "Fourth", (void *) 4);
+	  
+	  	/* Add listbox for form  and refresh screen */
+	    newtFormAddComponents(f, lb, NULL);
+	    newtRefresh();
+	    newtFormSetTimer(f, 200);
+	 
+	 	/* Run the menu until an option is selected */
+	    do {
+	        newtFormRun(f, &es);
+	        newtRefresh();
+	    } while (es.reason != NEWT_EXIT_COMPONENT);
+	 
+	 
+	 	/* Record the item that was selected from the listbox */
+	    int numhighlighted = (int)(long) newtListboxGetCurrent(lb);
+
+	    /* Tidy up the windows and execute the command from the array */
+	    newtPopWindow();
+	    newtPopWindow();
+	    newtFinished();
+	    newtFormDestroy(f);
+
+	    /* Run the command */
+	    //printf("\nSelected listbox item (%d):\n", numhighlighted);
+	 	system(menu[numhighlighted-1].command);
+
+	    return 0;
+	}
 }
 
 /*****************************************/
@@ -386,6 +506,7 @@ int get_option()
 	draw_bottom_line();
 }
 
+
 /*********************************/
 /*Function to service interrupt  */
 /*or to simply terminate.        */
@@ -403,4 +524,3 @@ int find_center(char center_of_what[])
 {
 	center_x = (80-(strlen(center_of_what)-1))/2;
 }
-		
