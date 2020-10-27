@@ -299,7 +299,7 @@ int main(int argc, char *argv[])
 	    newtOpenWindow(10, 5, 65, 16, menu_description);
 
 	    /* Setup the form */
-	    f = newtForm(NULL, "Scroll to the menu item and press enter to execute.", 0);
+	    f = newtForm(NULL, "Scroll to the menu item, or type first letter of menu item, and press enter to execute.", 0);
 	 
 	 	/* Add the components to the form */
 	    newtFormAddComponents(f, NULL);
