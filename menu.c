@@ -313,8 +313,9 @@ int main(int argc, char *argv[])
 	    for (i=0; i < total_no_of_items; i++) {
 	    		    newtListboxAppendEntry(lb, menu[i].description, (void *)(long) i+1);
 	    }
-	    /* Add a quit options */
+	    /* Add quit option and record number */
 	    newtListboxAppendEntry(lb, "Quit", (void *)(long) i+1);
+	    int quitMenuItem=i+1;
 
 	  	/* Add listbox to form  and refresh screen */
 	    newtFormAddComponents(f, lb, NULL);
@@ -333,7 +334,7 @@ int main(int argc, char *argv[])
 	   		 int numhighlighted = (int)(long) newtListboxGetCurrent(lb);
 		    
 		    /* Check if we're quiting */
-			if ((strcmp(from_term,"q") == 0) ||	(strcmp(from_term, "Q") == 0))
+			if (numhighlighted == quitMenuItem)
 			{
 				/* Tidy up and exit */
 				 newtPopWindow();
@@ -343,6 +344,7 @@ int main(int argc, char *argv[])
 			}
 		    /* We're not quitting so run the command go back to the menu */
 		 	system(menu[numhighlighted-1].command);
+		 	newtRefresh();
 	 	}
 
 
