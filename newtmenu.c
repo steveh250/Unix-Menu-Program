@@ -9,6 +9,7 @@ struct callbackInfo {
     newtComponent en;
     char * state;
 };
+
  
 void disableCallback(newtComponent co, void * data) {
     struct callbackInfo * cbi = data;
@@ -31,11 +32,36 @@ void suspend(void * d) {
 void helpCallback(newtComponent co, void * tag) {
     newtWinMessage("Help", "Ok", tag);
 }
+
+void usage(char command[]) {
+    printf ("\nUsage: %s <-c | -n> menufile\n", command);
+    printf (" -c : curses base menu\n");
+    printf (" -n : newt based menu\n");
+    printf (" menufile : Input for menu, options and commands\n");
+    printf ("\n See https://github.com/steveh250/Unix-Menu-Program for formatting.\n\n");
+    exit(-1);
+}
  
-int main(void) {
+int main(int argc, char *argv[]) {
+
+    /* Process the arguments and determine the coade path */
+    char CODE_PATH[7]; /*CURSES or NEWT */
+
+    if (argc < 3) {
+        usage(argv[0]);
+    };
+
+    if (strcmp(argv[1],"-c") == 0) {
+        strcpy(CODE_PATH,"CURSES");
+    }
+    else if (strcmp(argv[1],"-n") == 0) {
+        strcpy(CODE_PATH,"NEWT");
+    } else {
+        usage(argv[0]);
+    }
+
     newtComponent lb, b1, f, t;
     struct callbackInfo cbis[3];
-    char results[10];
     struct newtExitStruct es;
  
     newtInit();
