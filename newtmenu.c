@@ -45,8 +45,8 @@ void usage(char command[]) {
 int main(int argc, char *argv[]) {
 
     /* Process the arguments and determine the coade path */
-    char CODE_PATH[7]; /*CURSES or NEWT */
-
+ //   char CODE_PATH[7]; /*CURSES or NEWT */
+/*
     if (argc < 3) {
         usage(argv[0]);
     };
@@ -59,7 +59,7 @@ int main(int argc, char *argv[]) {
     } else {
         usage(argv[0]);
     }
-
+*/
     newtComponent lb, b1, f, t;
     struct callbackInfo cbis[3];
     struct newtExitStruct es;
@@ -90,9 +90,7 @@ int main(int argc, char *argv[]) {
     newtListboxAppendEntry(lb, "Third", (void *) 3);
     newtListboxAppendEntry(lb, "Fourth", (void *) 4);
   
-    t = newtTextbox(45, 10, 17, 5, NEWT_FLAG_WRAP);
- 
-    newtFormAddComponents(f, lb, t, NULL);
+    newtFormAddComponents(f, lb, NULL);
     newtRefresh();
     newtFormSetTimer(f, 200);
  
