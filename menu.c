@@ -301,46 +301,51 @@ int main(int argc, char *argv[])
 	    /* Setup the form */
 	    f = newtForm(NULL, "Scroll to the menu item and press enter to execute.", 0);
 	 
-	 	/* Setup the exit button */
-	    b1 = newtCompactButton(3, 1, "Exit");
-	 
 	 	/* Add the components to the form */
-	    newtFormAddComponents(f, b1, NULL);
+	    newtFormAddComponents(f, NULL);
 
 	    /* Setup the list box */
 	    lb = newtListbox(45, 1, 6, NEWT_FLAG_RETURNEXIT | NEWT_FLAG_BORDER |
 	                                NEWT_FLAG_SCROLL | NEWT_FLAG_SHOWCURSOR);
-	    newtListboxAppendEntry(lb, "First", (void *) 1);
-	    newtListboxAppendEntry(lb, "Second", (void *) 2);
-	    newtListboxAppendEntry(lb, "Third", (void *) 3);
-	    newtListboxAppendEntry(lb, "Fourth", (void *) 4);
-	  
-	  	/* Add listbox for form  and refresh screen */
+	    
+	    int i; /* Cpount for the loop */
+	    /* Setup the list menu based on what's in the structure array */
+	    for (i=0; i < total_no_of_items; i++) {
+	    		    newtListboxAppendEntry(lb, menu[i].description, (void *)(long) i+1);
+	    }
+	    /* Add a quit options */
+	    newtListboxAppendEntry(lb, "Quit", (void *)(long) i+1);
+
+	  	/* Add listbox to form  and refresh screen */
 	    newtFormAddComponents(f, lb, NULL);
 	    newtRefresh();
 	    newtFormSetTimer(f, 200);
 	 
 	 	/* Run the menu until an option is selected */
-	    do {
-	        newtFormRun(f, &es);
-	        newtRefresh();
-	    } while (es.reason != NEWT_EXIT_COMPONENT);
-	 
-	 
-	 	/* Record the item that was selected from the listbox */
-	    int numhighlighted = (int)(long) newtListboxGetCurrent(lb);
+	    while(1) {
+		    
+		    do {
+		        newtFormRun(f, &es);
+		        newtRefresh();
+		    } while (es.reason != NEWT_EXIT_COMPONENT);
 
-	    /* Tidy up the windows and execute the command from the array */
-	    newtPopWindow();
-	    newtPopWindow();
-	    newtFinished();
-	    newtFormDestroy(f);
+	 		/* Record the item that was selected from the listbox */
+	   		 int numhighlighted = (int)(long) newtListboxGetCurrent(lb);
+		    
+		    /* Check if we're quiting */
+			if ((strcmp(from_term,"q") == 0) ||	(strcmp(from_term, "Q") == 0))
+			{
+				/* Tidy up and exit */
+				 newtPopWindow();
+				 newtFinished();
+				 newtFormDestroy(f);
+				 exit(0);
+			}
+		    /* We're not quitting so run the command go back to the menu */
+		 	system(menu[numhighlighted-1].command);
+	 	}
 
-	    /* Run the command */
-	    //printf("\nSelected listbox item (%d):\n", numhighlighted);
-	 	system(menu[numhighlighted-1].command);
 
-	    return 0;
 	}
 }
 
@@ -513,8 +518,16 @@ int get_option()
 /*********************************/
 void die()
 {
-	endwin();
-	exit(0);
+	
+	if(strcmp(CODE_PATH, "CURSES") == 0) {
+		endwin();
+		exit(0);
+	} else { /* Must be on the NEWT code path */
+		/* Tidy up the windows and execute the command from the array */
+		 newtPopWindow();
+		 newtFinished();
+		 exit(0);
+	} 
 }
 
 /***************************************/
