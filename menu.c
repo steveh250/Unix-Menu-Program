@@ -292,7 +292,7 @@ int main(int argc, char * argv[]) {
     /* Setup the headings and footer*/
     newtDrawRootText(0, 0, menu_heading);
     newtPushHelpLine("Scroll up or down and select the menu item to execute.");
-    newtOpenWindow(10, 5, 65, 16, menu_description);
+    newtOpenWindow(10, 3, 65, 23, menu_description);
 
     /* Setup the form */
     f = newtForm(NULL, "Scroll to the menu item, or type first letter of menu item, and press enter to execute.", 0);
@@ -301,7 +301,7 @@ int main(int argc, char * argv[]) {
     newtFormAddComponents(f, NULL);
 
     /* Setup the list box */
-    lb = newtListbox(20, 1, 6, NEWT_FLAG_RETURNEXIT | NEWT_FLAG_BORDER |
+    lb = newtListbox(15, 1, 20, NEWT_FLAG_RETURNEXIT | NEWT_FLAG_BORDER |
       NEWT_FLAG_SCROLL | NEWT_FLAG_SHOWCURSOR);
 
     int i; /* Cpount for the loop */
