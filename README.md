@@ -49,10 +49,10 @@ As time permits - here's the plan:
    - [x] Add some error checking to deal with the TTY segmentation violation errors
  - Enhancements
    - [x] Remove the old 'OFF' ways of exiting the screen and just use Q/q
-   - [ ] Modify program to create a more TUI style menu - underway, if you're brave take a look at the Newt branch.
+   - [x] Modify program to create a more TUI style menu - done using newt library
  - General code improvements
    - [x] Changed kerbpass to passwd
-   - [x] Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set.
+   - [x] Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set
    - [ ] Handle the lines longer than 30 or 80 chars so it doesn't mess up the menu
 
 Licensing
