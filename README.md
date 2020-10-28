@@ -13,7 +13,7 @@ Build on Ubuntu 16.04
 =====================
 1. Install curses libraries: `sudo apt-get install libncurses5-dev libncursesw5-dev`
 2. Install newt libraries: `sudo apt-get install libnewt-dev`
-3. Compile the menu.c: `gcc -o menu menu.c -lncurses`
+3. Compile the menu.c: `gcc -o menu menu.c -lncurses -lnewt`
 4. Create a menu file - sample in repo
 5. Start it up - see usage below
 
