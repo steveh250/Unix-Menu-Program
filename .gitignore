@@ -12,3 +12,5 @@ newtmenu
 testnewt
 newtmenu.c
 /newtmenu.c
+*.swp
+menufile3
