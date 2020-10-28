@@ -4,7 +4,7 @@ I wrote this menu.c back in the 90's for an IBM AIX system running some PICK app
 Modified to run on Ubuntu (should compile fine on other platforms - it's pretty basic).
 
 NOTE:
- - The menu app will decide whether to draw the menu in one or two columns depending on how many entries are in the menufile.
+ - The menu app will decide whether to draw the menu in one or two columns (curses) depending on how many entries are in the menufile (newt version is a list).
  - If you use it or modify it, I'd appreciate a mention in the source code (taking into account [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ) - drop me an email to let me know what you're using it for, I'd be really interested.
 
 ![](menu-gif3.gif)
@@ -25,8 +25,8 @@ Usage
 
 menufile - format
 =================
- - NOTE: IF you exceed these lenghts it will mess your menu's up
- - Max lengh of description line is 30 chars
+ - NOTE: IF you exceed these lengths it will mess your menu's up
+ - Max length of description line is 30 chars
  - Max length of each command line - 80 chars.
    - NOTE: If you're in any doubt about the length of the command, wrap it up in a script (you wouldn't want your 'rm' command to land on the 80 char boundary :).
  - Max number of options - 30.
