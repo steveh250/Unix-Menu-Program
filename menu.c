@@ -85,8 +85,8 @@
 #define MAX_NO_ITEMS 30
 
 struct menu_item {
-  char description[30];
-  char command[80];
+  char description[31];
+  char command[81];
 };
 
 struct menu_item menu[MAX_NO_ITEMS];
