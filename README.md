@@ -1,3 +1,7 @@
+<head>
+ <meta name="google-site-verification" content="EOPX9a1C52LiWEy2FH2HPkPlsR9e2_mWI7XxQ9FV4zI" />
+</head>
+
 Background
 ==========
 I wrote this menu.c back in the 90's for an IBM AIX system running some PICK applications, used by users to launch programs, sysadmins to run jobs etc.
