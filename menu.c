@@ -390,18 +390,22 @@ int main(int argc, char * argv[]) {
 int construct_menu(char menu_file_name[]) {
   /*Creates the main menu window*/
 
-  /*Create the top line*/
+  /*Create the top line first and the overwrite with other componentns */
   move(0, 0);
   attron(A_UNDERLINE);
   addstr(line);
+  /* Add Menu heading next as it's a long string */
+  find_center(menu_heading);
+  move(0, center_x);
+  addstr(menu_heading);
+
+  /* Add other heading pieces */
   move(0, 0);
   addstr(login_name);
   move(0, 80 - strlen(login_term));
   addstr(login_term);
 
-  find_center(menu_heading);
-  move(0, center_x);
-  addstr(menu_heading);
+
 
   find_center(menu_description);
   move(2, center_x);
