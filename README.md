@@ -29,11 +29,12 @@ Usage
 
 menufile - format
 =================
- - NOTE: IF you exceed these lengths it will mess your menu's up
- - Max length of description line is 30 chars
- - Max length of each command line - 80 chars.
-   - NOTE: If you're in any doubt about the length of the command, wrap it up in a script (you wouldn't want your 'rm' command to land on the 80 char boundary :).
- - Max number of options - 30.
+ - NOTE: IF you exceed these lengths the program will throw an error.
+   - Max length of description line is 30 chars
+   - Max length of each command line - 80 chars.
+   - TIP: If you're in any doubt just wrap your commands up in a script - much easier and makes for a tidier menufile.
+ - NOTE: The program does not check if you have exceeded the maximum number - the program simply grabs the first 30 and will ignore the rest
+   - Max number of options - 30.
 
 ```
 Line 1 - Menu Heading - heading at top of screen
@@ -57,7 +58,7 @@ As time permits - here's the plan:
  - General code improvements
    - [x] Changed kerbpass to passwd
    - [x] Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set
-   - [ ] Handle the lines longer than 30 or 80 chars so it doesn't mess up the menu
+   - [x] Handle the lines longer than 30 or 80 chars so it doesn't mess up the menu
 
 Licensing
 =========
