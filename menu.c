@@ -220,7 +220,7 @@ int main(int argc, char * argv[]) {
   /* Menu Description */
   nread=getline(&line, &len, menu_file);
   if (nread-1 > MENU_DESC_LENGTH) {
-    printf("\nMenu Desicription is too long (needs to be less than %d characters it is %ld characters long.)\n", MENU_DESC_LENGTH, nread-1);
+    printf("\nMenu Description is too long (needs to be less than %d characters it is %ld characters long.)\n", MENU_DESC_LENGTH, nread-1);
     printf(" - Description: %s\n", line);
     usage(argv[0]);
     } else {
@@ -366,7 +366,7 @@ int main(int argc, char * argv[]) {
     lb = newtListbox(15, 1, 20, NEWT_FLAG_RETURNEXIT | NEWT_FLAG_BORDER |
       NEWT_FLAG_SCROLL | NEWT_FLAG_SHOWCURSOR);
 
-    int i; /* Cpount for the loop */
+    int i; /* Count for the loop */
     /* Setup the list menu based on what's in the structure array */
     for (i = 0; i < total_no_of_items; i++) {
       newtListboxAppendEntry(lb, menu[i].description, (void * )(long) i + 1);
