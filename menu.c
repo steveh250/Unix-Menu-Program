@@ -243,7 +243,7 @@ int main(int argc, char * argv[]) {
         printf(" - Command: %s\n", line);        
         usage(argv[0]);
       } else {
-        /* Store the description away */
+        /* Store the command away */
         strcpy(menu[count].command,line);
       }
     }
