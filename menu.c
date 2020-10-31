@@ -64,6 +64,10 @@
 /* Version 1.12 - Steve Harris (10/26/2020): newt branch                   */
 /* Added in usage, option processing and CODE_PATH with newt code.         */
 /***************************************************************************/
+/* Version 1.13 - Steve Harri (10/31/2020): FileFormatHandler branch       */
+/* Added in better processing of menufile to handle overlength lines.      */
+/***************************************************************************/
+
 #include <curses.h>
 
 #include <signal.h>
@@ -100,6 +104,7 @@ int get_option();
 int find_center();
 int draw_bottom_line();
 void die();
+void usage();
 
 /* CURSES - Setup variables to use in code*/
 int center_x;
@@ -155,15 +160,6 @@ char * file_name;
 char * login_name, * login_term; /* Store settings for menu heading */
 char CODE_PATH[7]; /*CURSES or NEWT */
 
-/* Usage */
-void usage(char command[]) {
-  printf("\nUsage: %s <-c | -n> menufile\n", command);
-  printf(" -c : curses base menu\n");
-  printf(" -n : newt based menu\n");
-  printf(" menufile : Input for menu, options and commands\n");
-  printf("\n See https://github.com/steveh250/Unix-Menu-Program for formatting.\n\n");
-  exit(-1);
-}
 
 /***********************************************/
 /*This is main() - where the real work is done */
@@ -191,8 +187,8 @@ int main(int argc, char * argv[]) {
   char *line = NULL;
   size_t len = 0;
   ssize_t nread;
-  desc_length = 30;
-  cmd_length = 80;
+  char desc_length = 30;
+  char cmd_length = 80;
 
   menu_file = fopen(file_name, "r");
   if (menu_file == NULL) {
@@ -205,48 +201,48 @@ int main(int argc, char * argv[]) {
   
   /*Read in first two heading lines from file and then read*/
   /*the rest into our array of structures*/
-  getline(&line, &length, menu_file);
-  strcpy(menu_heading, &line);
-  getline(&line, &length, menu_file);
-  strcpy(menu_heading, &line);
+  getline(&line, &len, menu_file);
+  strcpy(menu_heading, line);
+  getline(&line, &len, menu_file);
+  strcpy(menu_heading, line);
 
   /* Process the rest of the file as options and commands */
   /* Process the menu_file */
   count=0;
-  while (count < MAX_NO_ITEMS)
+  while (count < MAX_NO_ITEMS) {
     
     /* Read a description - max 30 characters*/
-    if (nread = getline(&line, &len, menu_file)) != -1) {
-      /*Reached end of file */
+    if (nread = getline(&line, &len, menu_file) != -1) {
+      /*Reached end of file*/
       break;
     } else {
       /* Check it's length and if it's o.k. store it away */
       if (nread > desc_length) {
-        printf("Description too long (needs to be less than %d it is %d long.\n", desc_length, nread);
-        printf("%s\n\n", &line);
-        usage();
+        printf("Description too long (needs to be less than %d it is %ld long.\n", desc_length, nread);
+        printf("%s\n\n", line);
+        usage(argv[0]);
       }
 
       /* Store the description away */
-      strcpy(menu[count].description,&line);
+      strcpy(menu[count].description,line);
     }
     printf("Retrieved line of length %zu:\n", nread);
     fwrite(line, nread, 1, stdout);
     
     /* Read a command - max 80 characters*/
-    if (nread = getline(&line, &len, menu_file)) != -1) {
+    if (nread = getline(&line, &len, menu_file) != -1) {
       /*Reached end of file */
       break;
     } else {
       /* Check it's length and if it's o.k. store it away */
       if (nread > cmd_length) {
-        printf("Command too long (needs to be less than %d it is %d long.\n", cmd_length, nread);
-        printf("%s\n\n", &line);        
-        usage();
+        printf("Command too long (needs to be less than %d it is %ld long.\n", cmd_length, nread);
+        printf("%s\n\n", line);        
+        usage(argv[0]);
       }
 
       /* Store the description away */
-      strcpy(menu[count].description,&line);
+      strcpy(menu[count].description,line);
     }
     printf("Retrieved line of length %zu:\n", nread);
     fwrite(line, nread, 1, stdout);
@@ -559,4 +555,14 @@ void die() {
 /***************************************/
 int find_center(char center_of_what[]) {
   center_x = (80 - (strlen(center_of_what) - 1)) / 2;
+}
+
+/* Usage */
+void usage(char command[]) {
+  printf("\nUsage: %s <-c | -n> menufile\n", command);
+  printf(" -c : curses base menu\n");
+  printf(" -n : newt based menu\n");
+  printf(" menufile : Input for menu, options and commands\n");
+  printf("\n See https://github.com/steveh250/Unix-Menu-Program for formatting.\n\n");
+  exit(-1);
 }
