@@ -152,8 +152,10 @@ void helpCallback(newtComponent co, void * tag) {
 
 /*BOTH - Menu file related settings*/
 FILE * menu_file;
-char menu_heading[80];
-char menu_description[80];
+#define MENU_HEADING_LENGTH 80
+char menu_heading[MENU_HEADING_LENGTH];
+#define MENU_DESC_LENGTH 80
+char menu_description[MENU_DESC_LENGTH];
 char * file_name;
 
 /* BOTH - Variables */
@@ -200,12 +202,34 @@ int main(int argc, char * argv[]) {
 
   
   /*Read in first two heading lines from file and then read*/
-  /*the rest into our array of structures*/
-  getline(&line, &len, menu_file);
-  strcpy(menu_heading, line);
-  getline(&line, &len, menu_file);
-  strcpy(menu_description, line);
-
+  /*the rest into our array of structures - doesn't rely on code path*/
+  /*Truncate them as they don't seem to truncate properly */
+  
+  /* Menu Heading */
+  nread=getline(&line, &len, menu_file);
+  if (nread-1 > MENU_HEADING_LENGTH) {
+    printf("\nMenu Heading is too long (needs to be less than %d characters it is %ld characters long.)\n", MENU_HEADING_LENGTH, nread-1);
+    printf(" - Description: %s\n", line);
+    usage(argv[0]);
+    } else {
+    /* Store the description away - replace the \n character brought in by getline*/
+    strcpy(menu_heading, line);
+    menu_heading[nread-1] = '\0';
+  }
+  
+  /* Menu Description */
+  nread=getline(&line, &len, menu_file);
+  if (nread-1 > MENU_DESC_LENGTH) {
+    printf("\nMenu Desicription is too long (needs to be less than %d characters it is %ld characters long.)\n", MENU_DESC_LENGTH, nread-1);
+    printf(" - Description: %s\n", line);
+    usage(argv[0]);
+    } else {
+    /* Store the description away  - replace the \n character brought in by getline*/
+    strcpy(menu_description, line);
+    menu_description[nread-1] = '\0';
+  }
+  
+  
   /* Process the rest of the file as options and commands */
   /* Process the menu_file */
   count=0;
@@ -224,9 +248,9 @@ int main(int argc, char * argv[]) {
         printf(" - Description: %s\n", line);
         usage(argv[0]);
       } else {
-
-        /* Store the description away */
+        /* Store the description away  - replace the \n character brought in by getline*/
         strcpy(menu[count].description,line);
+        menu[count].description[nread-1] = '\0';
       }
     }
     
@@ -243,8 +267,9 @@ int main(int argc, char * argv[]) {
         printf(" - Command: %s\n", line);        
         usage(argv[0]);
       } else {
-        /* Store the command away */
+        /* Store the command away - replace the \n character brought in by getline */
         strcpy(menu[count].command,line);
+        menu[count].command[nread-1] = '\0';
       }
     }
 
