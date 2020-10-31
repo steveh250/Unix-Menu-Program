@@ -187,6 +187,13 @@ int main(int argc, char * argv[]) {
   file_name = argv[2];
 
   /* Open file and read in data - send error if not there.*/
+  /* Based on https://man7.org/linux/man-pages/man3/getline.3.html */
+  char *line = NULL;
+  size_t len = 0;
+  ssize_t nread;
+  desc_length = 30;
+  cmd_length = 80;
+
   menu_file = fopen(file_name, "r");
   if (menu_file == NULL) {
     printf("Cannot open your menu file.\n");
@@ -194,6 +201,65 @@ int main(int argc, char * argv[]) {
     endwin();
     exit(8);
   };
+
+  
+  /*Read in first two heading lines from file and then read*/
+  /*the rest into our array of structures*/
+  getline(&line, &length, menu_file);
+  strcpy(menu_heading, &line);
+  getline(&line, &length, menu_file);
+  strcpy(menu_heading, &line);
+
+  /* Process the rest of the file as options and commands */
+  /* Process the menu_file */
+  count=0;
+  while (count < MAX_NO_ITEMS)
+    
+    /* Read a description - max 30 characters*/
+    if (nread = getline(&line, &len, menu_file)) != -1) {
+      /*Reached end of file */
+      break;
+    } else {
+      /* Check it's length and if it's o.k. store it away */
+      if (nread > desc_length) {
+        printf("Description too long (needs to be less than %d it is %d long.\n", desc_length, nread);
+        printf("%s\n\n", &line);
+        usage();
+      }
+
+      /* Store the description away */
+      strcpy(menu[count].description,&line);
+    }
+    printf("Retrieved line of length %zu:\n", nread);
+    fwrite(line, nread, 1, stdout);
+    
+    /* Read a command - max 80 characters*/
+    if (nread = getline(&line, &len, menu_file)) != -1) {
+      /*Reached end of file */
+      break;
+    } else {
+      /* Check it's length and if it's o.k. store it away */
+      if (nread > cmd_length) {
+        printf("Command too long (needs to be less than %d it is %d long.\n", cmd_length, nread);
+        printf("%s\n\n", &line);        
+        usage();
+      }
+
+      /* Store the description away */
+      strcpy(menu[count].description,&line);
+    }
+    printf("Retrieved line of length %zu:\n", nread);
+    fwrite(line, nread, 1, stdout);
+
+    /* Increment menu count */
+    count++;
+  }
+
+  /* Reached MAX_NO_ITEMS or EOF */
+  total_no_of_items = count;
+
+  free(line);
+  fclose(menu_file);
 
   /* Setup parts independent of code path */
   signal(SIGINT, die);
@@ -206,33 +272,11 @@ int main(int argc, char * argv[]) {
     login_term = NOTTY;
   }
 
-  /********************/
-  /*Read the menu file*/
-  /********************/
-  /*Read in first two heading lines from file and then read*/
-  /*the rest into our array of structures*/
-  fgets(menu_heading, sizeof(menu_heading), menu_file);
-  fgets(menu_description, sizeof(menu_description), menu_file);
+/* Pause program for debugging */
+printf("Press Any Key to Continue\n");  
+getchar();  
 
-  count = 0;
-
-  while (count < MAX_NO_ITEMS) {
-    ch = fgets(menu[count].description, sizeof(menu[count].description), menu_file);
-    (void) fgets(menu[count].command, sizeof(menu[count].command), menu_file);
-    menu[count].command[strlen(menu[count].command) - 1] = '\0';
-
-    /*Check for end of file*/
-    if (ch == NULL) break;
-
-    count++;
-  };
-
-  /*Truncate the menu headings*/
-  menu_heading[strlen(menu_heading) - 1] = '\0';
-  menu_description[strlen(menu_description) - 1] = '\0';
-
-  fclose(menu_file);
-  total_no_of_items = count;
+  
 
   /* ********** CODE PATH Decision *******/
   /* Follow the CURSES or NEWT code path */
