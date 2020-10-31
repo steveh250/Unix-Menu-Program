@@ -204,7 +204,7 @@ int main(int argc, char * argv[]) {
   getline(&line, &len, menu_file);
   strcpy(menu_heading, line);
   getline(&line, &len, menu_file);
-  strcpy(menu_heading, line);
+  strcpy(menu_description, line);
 
   /* Process the rest of the file as options and commands */
   /* Process the menu_file */
@@ -212,40 +212,42 @@ int main(int argc, char * argv[]) {
   while (count < MAX_NO_ITEMS) {
     
     /* Read a description - max 30 characters*/
-    if (nread = getline(&line, &len, menu_file) != -1) {
+    nread = getline(&line, &len, menu_file);
+
+    if (nread == -1) {
       /*Reached end of file*/
       break;
     } else {
-      /* Check it's length and if it's o.k. store it away */
-      if (nread > desc_length) {
-        printf("Description too long (needs to be less than %d it is %ld long.\n", desc_length, nread);
-        printf("%s\n\n", line);
+      /* Check it's length and if it's o.k. store it away - allow for string termination character*/
+      if (nread-1 > desc_length) {
+        printf("\n\nDescription is too long (needs to be less than %d characters it is %ld characters long.)\n", desc_length, nread-1);
+        printf(" - Description: %s\n", line);
         usage(argv[0]);
-      }
+      } else {
 
-      /* Store the description away */
-      strcpy(menu[count].description,line);
+        /* Store the description away */
+        strcpy(menu[count].description,line);
+      }
     }
-    printf("Retrieved line of length %zu:\n", nread);
-    fwrite(line, nread, 1, stdout);
     
     /* Read a command - max 80 characters*/
-    if (nread = getline(&line, &len, menu_file) != -1) {
+    nread = getline(&line, &len, menu_file);
+
+    if (nread == -1) {
       /*Reached end of file */
       break;
     } else {
-      /* Check it's length and if it's o.k. store it away */
-      if (nread > cmd_length) {
-        printf("Command too long (needs to be less than %d it is %ld long.\n", cmd_length, nread);
-        printf("%s\n\n", line);        
+      /* Check it's length and if it's o.k. store it away - allow for string termination character*/
+      if (nread-1 > cmd_length) {
+        printf("\n\nCommand is too long (needs to be less than %d chracaters it is %ld chracters long.)\n", cmd_length, nread-1);
+        printf(" - Command: %s\n", line);        
         usage(argv[0]);
+      } else {
+        /* Store the description away */
+        strcpy(menu[count].command,line);
       }
-
-      /* Store the description away */
-      strcpy(menu[count].description,line);
     }
-    printf("Retrieved line of length %zu:\n", nread);
-    fwrite(line, nread, 1, stdout);
+
 
     /* Increment menu count */
     count++;
@@ -268,11 +270,6 @@ int main(int argc, char * argv[]) {
     login_term = NOTTY;
   }
 
-/* Pause program for debugging */
-printf("Press Any Key to Continue\n");  
-getchar();  
-
-  
 
   /* ********** CODE PATH Decision *******/
   /* Follow the CURSES or NEWT code path */
