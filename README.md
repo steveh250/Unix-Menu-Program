@@ -10,6 +10,7 @@ Modified to run on Ubuntu (should compile fine on other platforms - it's pretty 
 NOTE:
  - The menu app will decide whether to draw the menu in one or two columns (curses) depending on how many entries are in the menufile (newt version is a list).
  - If you use it or modify it, I'd appreciate a mention in the source code (taking into account [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ) - drop me an email to let me know what you're using it for, I'd be really interested.
+ - If you are editing the menufiles with a DOS editor, run them through dos2unix before using in the menu or they will produce unexpected results.
 
 ![](menu-gif3.gif)
 
