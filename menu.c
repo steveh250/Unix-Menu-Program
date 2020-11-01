@@ -64,8 +64,12 @@
 /* Version 1.12 - Steve Harris (10/26/2020): newt branch                   */
 /* Added in usage, option processing and CODE_PATH with newt code.         */
 /***************************************************************************/
-/* Version 1.13 - Steve Harri (10/31/2020): FileFormatHandler branch       */
+/* Version 1.13 - Steve Harris (10/31/2020): FileFormatHandler branch       */
 /* Added in better processing of menufile to handle overlength lines.      */
+/***************************************************************************/
+/* Version 1.14 - Steve Harris (11/1/2020): NewtColour branch              */
+/* Added in newt color pallette - didn;t bother adding option to select.   */
+/* There aren't a huge range to choose from.                               */
 /***************************************************************************/
 
 #include <curses.h>
