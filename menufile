@@ -5,4 +5,4 @@ clear;ls -l;sleep 10;clear
 Disk Usage
 ./df.sh
 Menu 2
-clear;./menu -c menufile2
+clear;./menu -c menufile2;clear

@@ -1,4 +1,4 @@
 Menu Heading - Menu 2
 Menu Description - Menu 2
 du - all files
-clear;du -all | more;clear
+clear;du -all | less;clear
