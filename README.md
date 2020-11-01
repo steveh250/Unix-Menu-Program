@@ -30,11 +30,11 @@ Usage
 
 menufile - format
 =================
- - NOTE: IF you exceed these lengths the program will throw an error.
+ - NOTE: If you exceed these lengths the program will throw an error (the error will provide guidance on how long the string is and which one).
    - Max length of description line is 30 chars
    - Max length of each command line - 80 chars.
    - TIP: If you're in any doubt just wrap your commands up in a script - much easier and makes for a tidier menufile.
- - NOTE: The program does not check if you have exceeded the maximum number - the program simply grabs the first 30 and will ignore the rest
+ - NOTE: The program does not check if you have exceeded the maximum number of menu options - the program simply grabs the first 30 and will ignore the rest
    - Max number of options - 30.
 
 ```
