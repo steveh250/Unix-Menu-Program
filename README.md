@@ -5,14 +5,14 @@
 Background
 ==========
 I wrote this menu.c back in the 90's for an IBM AIX system running some PICK applications, used by users to launch programs, sysadmins to run jobs etc.
-Modified to run on Ubuntu (should compile fine on other platforms - it's pretty basic).
+Modified to run on Ubuntu (should compile fine on other platforms - it's pretty basic).  I've picked this back up and updating, cleaning up the code and releasing enhanced versions.
 
 NOTE:
  - The menu app will decide whether to draw the menu in one or two columns (curses) depending on how many entries are in the menufile (newt version is a list).
  - If you use it or modify it, I'd appreciate a mention in the source code (taking into account [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ) - drop me an email to let me know what you're using it for, I'd be really interested.
  - If you are editing the menufiles with a DOS editor, run them through dos2unix before using in the menu or they will produce unexpected results.
 
-![](menu-gif3.gif)
+![](menu-gif-newt.gif)
 
 Build on Ubuntu 16.04
 =====================
