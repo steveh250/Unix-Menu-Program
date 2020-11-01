@@ -1,2 +1,4 @@
 # Auto detect text files and perform LF normalization
-* text=auto
+#* text=auto
+# Running into menu formatting problems when editing in Linux and committing in Windows
+text eol=lf
