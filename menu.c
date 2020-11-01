@@ -150,6 +150,33 @@ void helpCallback(newtComponent co, void * tag) {
   newtWinMessage("Help", "Ok", tag);
 }
 
+/* Newt Color pallette*/
+const struct newtColors newtDefaultColorPalette = {
+  "white", "blue",      /* root fg, bg */
+  "black", "lightgray",     /* border fg, bg */
+  "black", "lightgray",     /* window fg, bg */
+  "white", "black",     /* shadow fg, bg */
+  "red", "lightgray",     /* title fg, bg */
+  "lightgray", "red",     /* button fg, bg */
+  "red", "lightgray",     /* active button fg, bg */
+  "lightgray", "blue",      /* checkbox fg, bg */
+  "lightgray", "red",     /* active checkbox fg, bg */
+  "lightgray", "blue",      /* entry box fg, bg */
+  "blue", "lightgray",      /* label fg, bg */
+  "black", "lightgray",     /* listbox fg, bg */
+  "lightgray", "blue",      /* active listbox fg, bg */
+  "black", "lightgray",     /* textbox fg, bg */
+  "lightgray", "red",     /* active textbox fg, bg */
+  "white", "blue",      /* help line */
+  "lightgray", "blue",      /* root text */
+  "blue",         /* scale full */
+  "red",          /* scale empty */
+  "blue", "lightgray",      /* disabled entry fg, bg */
+  "black", "lightgray",     /* compact button fg, bg */
+  "lightgray", "red",     /* active & sel listbox */
+  "black", "brown"      /* selected listbox */
+};
+
 /*BOTH - Menu file related settings*/
 FILE * menu_file;
 #define MENU_HEADING_LENGTH 80
@@ -346,6 +373,11 @@ int main(int argc, char * argv[]) {
     /* Initialize the screen */
     newtInit();
     newtCls();
+
+    /* Using the colour pallette define earlier - set the colours and refresh*/
+    newtSetColors(newtDefaultColorPalette);
+    newtRefresh();
+
 
     /* Setup call backs */
     newtSetSuspendCallback(suspend, NULL);
