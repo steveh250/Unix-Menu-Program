@@ -7,6 +7,8 @@ Background
 I wrote this menu.c back in the 90's for an IBM AIX system running some PICK applications, used by users to launch programs, sysadmins to run jobs etc.
 Modified to run on Ubuntu (should compile fine on other platforms - it's pretty basic).  I've picked this back up and updating, cleaning up the code and releasing enhanced versions.
 
+There are of course other ways to do this, shell scripts, dialog or whiptail and pdmenu (http://manpages.ubuntu.com/manpages/bionic/man1/pdmenu.1.html).
+
 NOTE:
  - The menu app will decide whether to draw the menu in one or two columns (curses) depending on how many entries are in the menufile (newt version is a list).
  - If you use it or modify it, I'd appreciate a mention in the source code (taking into account [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0) ) - drop me an email to let me know what you're using it for, I'd be really interested.
