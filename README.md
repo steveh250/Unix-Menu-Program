@@ -32,7 +32,7 @@ menufile - format
 =================
  - NOTE: If you exceed these lengths the program will throw an error (the error will provide guidance on how long the string is and which one).
    - Max length of description line is 30 chars
-   - Max length of each command line - 80 chars.
+   - Max length of each command line is 80 chars.
    - TIP: If you're in any doubt just wrap your commands up in a script - much easier and makes for a tidier menufile.
  - NOTE: The program does not check if you have exceeded the maximum number of menu options - the program simply grabs the first 30 and will ignore the rest
    - Max number of options - 30.
@@ -60,6 +60,8 @@ As time permits - here's the plan:
    - [x] Changed kerbpass to passwd
    - [x] Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set
    - [x] Handle the lines longer than 30 or 80 chars so it doesn't mess up the menu
+
+ - NOTE: For further planned updated please see Github issues where I'll be trakcing changes (https://github.com/steveh250/Unix-Menu-Program/issues).
 
 Licensing
 =========
