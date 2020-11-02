@@ -45,7 +45,7 @@ Option.....
    - Max length of Menu Heading is 80 chars
    - Max length of Menu Description is 80 chars
    - Max length of Menu Option Description is 30 chars
-   - Max length of Menu Option command is 80 chars
+   - Max length of Menu Command is 80 chars
    - TIP: If you're in any doubt just wrap your commands up in a script - much easier and makes for a tidier menufile.
  - NOTE: The program does not check if you have exceeded the maximum number of menu options - the program simply grabs the first 30 and will ignore the rest
    - Max number of options - 30.
