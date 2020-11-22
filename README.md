@@ -65,7 +65,7 @@ As time permits - here's the plan:
    - [x] Fixed a bug where after an execution the menu would redraw and leave the last menu option number selected displayed at the bottom of the screen - there was an redundant printw() - echo() had already been set
    - [x] Handle the lines longer than 30 or 80 chars so it doesn't mess up the menu
 
- - NOTE: For further planned updates please see Github issues where I'll be trakcing changes (https://github.com/steveh250/Unix-Menu-Program/issues).
+ - NOTE: For further planned updates please see Github issues where I'll be tracking changes (https://github.com/steveh250/Unix-Menu-Program/issues).
 
 Licensing
 =========
