@@ -28,7 +28,7 @@ Build on openSUSE Tumbleweed
 ============================
 ** Thanks to John Pleming for troubleshooting this.
 1. Install curses: ncurses5-devel
-2. Install newt: newt-devel
+2. Install newt: newt-devel or libnewt-dev (Ubuntu 20.04.6 LTS on WSL)
 3. Compile the menu.c: `gcc -o menu menu.c -lncurses -lnewt`
 4. Create a menu file - samples in the repo (menufile and menufile2)
 5. Start it up - see usage below
