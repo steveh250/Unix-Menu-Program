@@ -28,7 +28,7 @@ Build on openSUSE Tumbleweed
 ============================
 ** Thanks to John Pleming for troubleshooting this.
 1. Install curses: ncurses5-devel
-2. Install newt: newt-devel or libnewt-dev (Ubuntu 20.04.6 LTS on WSL)
+2. Install newt: newt-devel
 3. Compile the menu.c: `gcc -o menu menu.c -lncurses -lnewt`
 4. Create a menu file - samples in the repo (menufile and menufile2)
 5. Start it up - see usage below
@@ -79,4 +79,9 @@ As time permits - here's the plan:
 Licensing
 =========
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+
+Release Candidate (RC) Versions
+============
+ - The two RC versions were created in a refactoring session with ChatGPT and have not been fully tested - they appear to work just fine.
+ - For the Python version you will need to do a `pip install dialog` to get it to work - other than that the menufile and flags (`-c` & `-n`) are the same as the C version.
 
