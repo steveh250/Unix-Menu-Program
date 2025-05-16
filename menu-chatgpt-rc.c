@@ -1,5 +1,6 @@
 /* Updated Menu Program in C - Refactored and Modernized */
 /* 6/16/2025 - Had ChatGPT refactor the code - this was it's second attempt and works. */
+/* NOTE: TREAT A RELEASE CANDIDTAE - HAS NOT BEEN FULLY TESTED. */
 
 #include <curses.h>
 #include <signal.h>
