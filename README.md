@@ -82,6 +82,6 @@ Licensing
 
 Release Candidate (RC) Versions
 ============
- - The two RC versions were created in a refactoring session with ChatGPT and have not been fully tested - they appear to work just fine.
+ - The three RC versions were created in a refactoring session with ChatGPT 5 and Gemini 3 and have not been fully tested - the ChatGPT one's appear to work just fine, the Gemini one has not been compiled or tested in any way.
  - For the Python version you will need to do a `pip install dialog` to get it to work - other than that the menufile and flags (`-c` & `-n`) are the same as the C version.
 
