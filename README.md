@@ -82,7 +82,7 @@ Licensing
 
 Release Candidate (RC) Versions
 ============
- - The three RC versions were created in a refactoring session with ChatGPT 5 and Gemini 3 and have not been fully tested - the ChatGPT one's appear to work just fine, the Gemini one has not been compiled or tested in any way.
+ - The four RC versions were created in refactoring sessions with ChatGPT 5, Gemini 3 and Claude Code and have not been fully tested - the ChatGPT ones appear to work just fine, the Gemini one has not been compiled or tested in any way, and the Claude Code one has been compiled and screen-checked (see below).
  - For the Python version you will need to do a `pip install dialog` to get it to work - other than that the menufile and flags (`-c` & `-n`) are the same as the C version.
  - `menu-cc-opus5.5High.c` was created in a refactoring session with Claude Code. It compiles without warnings and its screens were checked against `menu.c` for both `-c` and `-n`, giving identical output. It also fixes some buffer overflows and out-of-range menu choices, and accepts DOS (CRLF) menufiles. Build it the same way: `gcc -o menu menu-cc-opus5.5High.c -lncurses -lnewt`
 
